@@ -1,0 +1,109 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R1
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 165.132.9.126 255.255.255.128
+ ip access-group 100 in
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ ip address 192.168.10.1 255.255.255.0
+ ip access-group 100 in
+ duplex auto
+ speed auto
+!
+interface Serial2/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface Serial3/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+!
+interface FastEthernet6/0
+ ip address 165.132.9.190 255.255.255.192
+ ip access-group 100 in
+ duplex auto
+ speed auto
+!
+interface FastEthernet7/0
+ ip address 165.132.9.222 255.255.255.224
+ ip access-group 100 in
+ duplex auto
+ speed auto
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.10.0 0.0.0.255 area 1
+ network 165.132.9.0 0.0.0.127 area 1
+ network 165.132.9.128 0.0.0.63 area 1
+ network 165.132.9.192 0.0.0.31 area 1
+!
+router rip
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 100 deny ip any host 165.132.9.1
+access-list 100 permit ip any any
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end

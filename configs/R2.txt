@@ -1,0 +1,95 @@
+!
+version 12.2
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username R3 password 0 Secret
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ ip address 192.168.10.2 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial2/0
+ ip address 192.168.20.1 255.255.255.0
+ encapsulation ppp
+ ppp authentication chap
+ clock rate 2000000
+!
+interface Serial3/0
+ no ip address
+ clock rate 2000000
+ shutdown
+!
+interface FastEthernet4/0
+ no ip address
+ shutdown
+!
+interface FastEthernet5/0
+ no ip address
+ shutdown
+!
+router ospf 1
+ log-adjacency-changes
+ network 192.168.20.0 0.0.0.255 area 0
+ network 192.168.10.0 0.0.0.255 area 1
+!
+router rip
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
